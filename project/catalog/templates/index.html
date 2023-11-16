@@ -1,0 +1,88 @@
+{% extends "base_generic.html" %}
+
+{% block header %}
+
+{% endblock header %}
+
+{% block main %}
+
+
+<div class="">
+    <h2 class="text-left text-xl font-bold my-10">новые заявки:</h2>
+    <div class="flex flex-wrap gap-4">
+
+        {% if new_applications %}
+        {% for app in new_applications %}
+        <div class="bg-gray-100/50 rounded-lg px-4 py-2 w-80">
+            <img class="mx-auto max-h-52" src="{{app.image.url}}" alt="Application image">
+            <p class="text-lg text-center font-bold">{{app.name}}</p>
+            {{app.created_at}}
+            <p class="">
+                <b>Категория:</b>
+                <span class="">{{app.category}}</span>
+            </p>
+        </div>
+        {% endfor %}
+
+        {% else %}
+        <div class="flex-1">
+            <p class="text-center font-medium">заявок нет</p>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+<div class="">
+    <h2 class="text-left text-xl font-bold my-10">{{accept_applications_count}} принято в работу</h2>
+    <div class="flex flex-wrap gap-4">
+
+        {% if accept_applications %}
+        {% for app in accept_applications %}
+        <div class="bg-gray-100/50 rounded-lg px-4 py-2 w-80">
+            <img class="mx-auto max-h-52" src="{{app.image.url}}" alt="Application image">
+            <p class="text-lg text-center font-bold">{{app.name}}</p>
+            {{app.created_at}}
+            <p class="">
+                <b>Категория:</b>
+                <span class="">{{app.category}}</span>
+            </p>
+        </div>
+        {% endfor %}
+
+        {% else %}
+        <div class="flex-1">
+            <p class="text-center font-medium">заявок нет</p>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+<div class="">
+    <h2 class="text-left text-xl font-bold my-10">выполнено</h2>
+    <div class="flex flex-wrap gap-4">
+
+        {% if done_applications %}
+        {% for app in done_applications %}
+        <div class="bg-gray-100/50 rounded-lg px-4 py-2 w-80">
+            <img class="mx-auto max-h-52" src="{{app.image.url}}" alt="Application image">
+            <p class="text-lg text-center font-bold">{{app.name}}</p>
+            {{app.created_at}}
+            <p class="">
+                <b>Категория:</b>
+                <span class="">{{app.category}}</span>
+            </p>
+        </div>
+        {% endfor %}
+
+        {% else %}
+        <div class="flex-1">
+            <p class="text-center font-medium">заявок нет</p>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}
