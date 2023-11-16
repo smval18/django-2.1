@@ -14,12 +14,7 @@
     <div class="">
         <footer class="flex justify-between items-center px-4 py-2">
             <a class="text-2xl text-black-600 font-bold" href="{% url 'index' %}">Главная</a>
-            <div class="">
-                <a type="button" class="text-black font-medium rounded-lg text-sm px-5 py-2.5"
-                    href="{% url 'login' %}">Авторизоваться</a>
-                <a type="button" class="text-black font-medium rounded-lg text-sm px-5 py-2.5"
-                    href="{% url 'register' %}">Регистрация</a>
-            </div>
+           
         </footer>
         <main class="flex-1 px-4">
             {% block main %}
