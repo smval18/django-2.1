@@ -27,6 +27,9 @@ class RegisterView(generic.CreateView):
     template_name = 'registration/register.html'
     success_url = reverse_lazy('login')
 
+def logouted(request):
+    return render(request, 'registration/logout.html')
+
 class ProfileView(mixins.LoginRequiredMixin, generic.DetailView):
     model = User
     template_name = 'registration/profile.html'
