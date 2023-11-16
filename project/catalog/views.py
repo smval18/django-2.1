@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from . import models
 from . import forms
-
+from django.contrib.auth import mixins
 
 class IndexView(generic.View):
     def get(self, request):
@@ -26,3 +26,11 @@ class RegisterView(generic.CreateView):
     form_class = forms.RegisterForm
     template_name = 'registration/register.html'
     success_url = reverse_lazy('login')
+
+class ProfileView(mixins.LoginRequiredMixin, generic.DetailView):
+    model = User
+    template_name = 'registration/profile.html'
+    context_object_name = 'user'
+
+    def get_object(self, queryset=None):
+        return self.request.user
