@@ -3,7 +3,7 @@ from django.views import generic
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from . import models
-
+from . import forms
 
 
 class IndexView(generic.View):
@@ -20,3 +20,9 @@ class IndexView(generic.View):
         }
 
         return context
+
+class RegisterView(generic.CreateView):
+    model = User
+    form_class = forms.RegisterForm
+    template_name = 'registration/register.html'
+    success_url = reverse_lazy('login')

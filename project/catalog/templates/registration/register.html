@@ -1,0 +1,112 @@
+{% extends "base_generic.html" %}
+
+{% block main %}
+
+<div class="">
+    <form class=" max-w-xl flex flex-col gap-8 border" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+
+        {% if form.non_field_errors %}
+            {{ form.non_field_errors }}
+        {% endif %}
+
+        <div class="space-y-4 ">
+            <div class="">
+                {{ form.first_name.label_tag }}
+                {{ form.first_name }}
+            </div>
+
+            {% if form.first_name.errors %}
+                {% for error in form.first_name.errors %}
+                    <p class="">{{error}}</p>
+                {% endfor %}
+            {% endif %}
+
+            <div class="">
+                {{ form.middle_name.label_tag }}
+                {{ form.middle_name }}
+            </div>
+
+            {% if form.last_name.errors %}
+                {% for error in form.last_name.errors %}
+                    <p class="">{{error}}</p>
+                {% endfor %}
+            {% endif %}
+
+            <div class="">
+                {{ form.last_name.label_tag }}
+                {{ form.last_name }}
+            </div>
+
+            {% if form.last_name.errors %}
+                {% for error in form.last_name.errors %}
+                    <p class="">{{error}}</p>
+                {% endfor %}
+            {% endif %}
+
+            <div class="">
+                {{ form.email.label_tag }}
+                {{ form.email }}
+            </div>
+
+            {% if form.email.errors %}
+                {% for error in form.email.errors %}
+                    <p class="">{{error}}</p>
+                {% endfor %}
+            {% endif %}
+
+            <div class="">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+            </div>
+
+            {% if form.username.errors %}
+                {% for error in form.username.errors %}
+                    <p class="">{{error}}</p>
+                {% endfor %}
+            {% endif %}
+
+            <div class="">
+                {{ form.password1.label_tag }}
+                {{ form.password1 }}
+            </div>
+
+            {% if form.password1.errors %}
+                {% for error in form.password1.errors %}
+                    <p class="">{{error}}</p>
+                {% endfor %}
+            {% endif %}
+
+            <div class="">
+                {{ form.password2.label_tag }}
+                {{ form.password2 }}
+            </div>
+
+            {% if form.password2.errors %}
+                {% for error in form.password2.errors %}
+                    <p class="">{{error}}</p>
+                {% endfor %}
+            {% endif %}
+
+            <div class="">
+                {{ form.tos.label_tag }}
+                {{ form.tos }}
+            </div>
+
+            {% if form.tos.errors %}
+                {% for error in form.tos.errors %}
+                    <p class="">{{error}}</p>
+                {% endfor %}
+            {% endif %}
+
+        </div>
+
+        <div class="flex gap-4 justify-center">
+            <button type="submit"
+                class="">Регистрация</button>
+        </div>
+    </form>
+</div>
+
+{% endblock main %}
