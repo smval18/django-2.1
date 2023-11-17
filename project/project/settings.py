@@ -82,7 +82,8 @@ DATABASES = {
     }
 }
 
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
+MEDIA_URL = '/images/'
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -125,3 +126,4 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "catalog.User"
+LOGOUT_REDIRECT_URL = '/accounts/logouted/'
