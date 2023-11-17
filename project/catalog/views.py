@@ -37,3 +37,23 @@ class ProfileView(mixins.LoginRequiredMixin, generic.DetailView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
+class MyAppsView(mixins.LoginRequiredMixin, generic.View):
+    def get(self, request):
+        return render(request, 'my_application.html', self.get_context_data())
+
+    def get_context_data(self):
+        filters = {
+            'user': self.request.user,
+        }
+
+        if self.request.GET.get('status'):
+            filters['status'] = models.Status.objects.get(
+                name=self.request.GET.get('status'))
+
+        context = {
+            'statuses': models.Status.objects.all(),
+            'applications': models.Application.objects.filter(**filters).order_by('-created_at').all(),
+        }
+
+        return context

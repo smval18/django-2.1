@@ -1,0 +1,61 @@
+{% extends "base_generic.html" %}
+
+{% block header %}
+
+{% endblock header %}
+
+{% block main %}
+
+<div class="">
+
+    {% if statuses %}
+
+    <p>
+        <b>Сортировать:</b><br>
+        {% for status in statuses %}
+
+       <a class="text-black" href="#">{{status}}</a><br>
+
+        {% endfor %}
+
+        <a class="text-black" href="#">показать все</a>
+    </p>
+
+    {% endif %}
+
+    <a class="text-s font-bold"
+        href="#">Добавить новое приложение</a>
+</div>
+
+<div class="">
+
+    <div class="flex flex-wrap gap-4">
+
+        {% if applications %}
+        {% for app in applications %}
+        <div class="group bg-gray-100/50  px-4 py-2 w-80 ">
+
+            {% if app.status.name == "New" %}
+                <a class="text-white bg-black font-medium text-sm px-5 py-2.5" href="#">X</a>
+            {% endif %}
+            <img class="mx-auto max-h-52" src="{{app.image.url}}" alt="Application image">
+            <p class="text-lg text-center font-bold">{{app.name}}</p>
+            {{app.created_at}}
+            <p class="">
+                <b>Категория:</b>
+                <span class="">{{app.category}}</span><br>
+                <b>Статус:</b>
+                <span class="">{{app.status}}</span><br>
+                <b>Описание:</b>
+                <span class="">{{app.description}}</span>
+            </p>
+        </div>
+        {% endfor %}
+
+
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}
