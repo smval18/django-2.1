@@ -17,7 +17,7 @@ class RegisterForm(UserCreationForm):
         validators=[
             validators.RegexValidator(
                 regex=r'^[а-яА-ЯёЁ -]*$',
-                message='Only latin letters are allowed',
+                message='ТОЛЬКО КИРИЛЛИЦА',
             ),
         ],
     )
@@ -28,7 +28,7 @@ class RegisterForm(UserCreationForm):
         validators=[
             validators.RegexValidator(
                 regex=r'^[а-яА-ЯёЁ -]*$',
-                message='Only latin letters are allowed',
+                message='ТОЛЬКО КИРИЛЛИЦА',
             ),
         ],
     )
@@ -39,7 +39,7 @@ class RegisterForm(UserCreationForm):
         validators=[
             validators.RegexValidator(
                 regex=r'^[а-яА-ЯёЁ -]*$',
-                message='Only latin letters are allowed',
+                message='ТОЛЬКО КИРИЛЛИЦА',
             ),
         ],
     )
@@ -64,7 +64,7 @@ class RegisterForm(UserCreationForm):
         required=True,
     )
     tos = forms.BooleanField(
-        label='Я ознакомлен и согасен с правилами пользования',
+        label='Я ознакомлен и согласен с правилами пользования',
         widget=forms.CheckboxInput(),
         required=True,
     )
@@ -87,10 +87,10 @@ class RegisterForm(UserCreationForm):
         password2 = self.cleaned_data.get('password2')
 
         if password1 == '' or password2 == '':
-            raise forms.ValidationError('Password cannot be empty')
+            raise forms.ValidationError('ЗАПОЛИНИТЕ ПАРОЛЬ')
 
         if password1 != password2:
-            raise forms.ValidationError('Passwords do not match')
+            raise forms.ValidationError('ПАРОЛИ НЕ СОВПАДАЮТ')
 
         return password2
 
