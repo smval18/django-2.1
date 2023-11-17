@@ -14,11 +14,11 @@
         <b>Сортировать:</b><br>
         {% for status in statuses %}
 
-       <a class="text-black" href="#">{{status}}</a><br>
+       <a class="text-black" href="?status={{status}}">{{status}}</a><br>
 
         {% endfor %}
 
-        <a class="text-black" href="#">показать все</a>
+        <a class="text-black" href="{{request.path}}">показать все</a>
     </p>
 
     {% endif %}
