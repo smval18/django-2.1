@@ -8,7 +8,8 @@ urlpatterns = [
     path('accounts/register/', views.RegisterView.as_view(), name='register'),
     path('accounts/profile/', views.ProfileView.as_view(), name='profile'),
     path('accounts/logouted/', views.logouted, name='logouted'),
-    path('myapps/', views.MyAppsView.as_view(), name='myapplication'),
+    path('myapplication/', views.MyAppsView.as_view(), name='myapplication'),
+    path('myapplication/new', views.NewAppView.as_view(), name='newapplication'),
 
 
 

@@ -5,6 +5,8 @@ from django.urls import reverse_lazy
 from . import models
 from . import forms
 from django.contrib.auth import mixins
+from django.views.generic import edit
+
 
 class IndexView(generic.View):
     def get(self, request):
@@ -21,14 +23,17 @@ class IndexView(generic.View):
 
         return context
 
+
 class RegisterView(generic.CreateView):
     model = User
     form_class = forms.RegisterForm
     template_name = 'registration/register.html'
     success_url = reverse_lazy('login')
 
+
 def logouted(request):
     return render(request, 'registration/logout.html')
+
 
 class ProfileView(mixins.LoginRequiredMixin, generic.DetailView):
     model = User
@@ -37,6 +42,7 @@ class ProfileView(mixins.LoginRequiredMixin, generic.DetailView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
 
 class MyAppsView(mixins.LoginRequiredMixin, generic.View):
     def get(self, request):
@@ -57,3 +63,15 @@ class MyAppsView(mixins.LoginRequiredMixin, generic.View):
         }
 
         return context
+
+
+class NewAppView(mixins.LoginRequiredMixin, edit.CreateView):
+    model = models.Application
+    form_class = forms.NewApplicationForm
+    template_name = 'new_application.html'
+    success_url = reverse_lazy('myapplication')
+
+    def get_form_kwargs(self):
+        kwargs = super(NewAppView, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs

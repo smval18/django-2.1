@@ -101,3 +101,96 @@ class RegisterForm(UserCreationForm):
             user.save()
 
         return user
+
+
+class NewApplicationForm(forms.ModelForm):
+
+    class Meta:
+        model = models.Application
+        fields = (
+            'name',
+            'description',
+            'image',
+            'category'
+        )
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user')
+        super(NewApplicationForm, self).__init__(*args, **kwargs)
+
+    def clean_image(self):
+        img = self.cleaned_data.get('image')
+
+        if not img:
+            raise forms.ValidationError("ДОБАВЬТЕ ИЗОБРАЖЕНИЕ")
+
+        if img.size > 2*1024*1024:
+            raise forms.ValidationError("ИЗОБРАЖЕНИЕ БОЛЬШОЕ, ДОБАВЬТЕ МЕНЬШЕ")
+
+        return img
+
+    def save(self, commit=True) -> Any:
+        app = super(NewApplicationForm, self).save(commit=False)
+
+        app.user = self.user
+        app.status = models.Status.get_by_name('новая')
+
+        if commit:
+            app.save()
+
+        return app
+
+
+class ApplicaionForm(forms.ModelForm):
+    class Meta:
+        model = models.Application
+        fields = (
+            'description',
+            'image',
+            'status'
+        )
+
+    def __init__(self, *args, **kwargs) -> None:
+        id = kwargs.pop('record_id', None)
+
+        super().__init__(*args, **kwargs)
+
+        model = models.Application.objects.get(pk=id)
+
+        if model.status.name != 'New':
+            del self.fields['status']
+
+            return
+
+        statuses = models.Status.objects.exclude(pk=model.status.pk).all()
+
+        self.fields['status'].choices = ((s.pk, s.name) for s in statuses)
+
+    def clean_image(self):
+        img = self.cleaned_data.get('image')
+
+        if not img:
+            raise forms.ValidationError("ДОБАВЬТЕ ИЗОБРАЖЕНИЕ")
+
+        if img.size > 2 * 1024 * 1024:
+            raise forms.ValidationError("ИЗОБРАЖЕНИЕ БОЛЬШОЕ, ДОБАВЬТЕ МЕНЬШЕ")
+
+        return img
+
+    def save(self, commit=True) -> Any:
+        app = super(ApplicaionForm, self).save(commit=False)
+        app.image = self.cleaned_data.get('image')
+
+
+        if commit:
+            app.save()
+
+        return app
+
+class CategoryForm(forms.ModelForm):
+
+    class Meta:
+        model = models.Category
+        fields = (
+            'name',
+        )
