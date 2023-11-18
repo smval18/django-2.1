@@ -6,6 +6,7 @@ from . import models
 from . import forms
 from django.contrib.auth import mixins
 from django.views.generic import edit
+from django.core.exceptions import PermissionDenied
 
 
 class IndexView(generic.View):
@@ -75,3 +76,16 @@ class NewAppView(mixins.LoginRequiredMixin, edit.CreateView):
         kwargs = super(NewAppView, self).get_form_kwargs()
         kwargs.update({'user': self.request.user})
         return kwargs
+
+class DeleteAppView(mixins.LoginRequiredMixin, edit.DeleteView):
+    model = models.Application
+    success_url = reverse_lazy('myapplication')
+    template_name = 'delete_application.html'
+
+    def get_object(self, queryset=None):
+        obj = super(DeleteAppView, self).get_object()
+
+        if obj.user != self.request.user or obj.status != models.Status.get_by_name('новая'):
+            raise PermissionDenied
+
+        return obj
