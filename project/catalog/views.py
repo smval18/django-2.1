@@ -8,7 +8,7 @@ from . import forms
 from django.contrib.auth import mixins
 from django.views.generic import edit
 from django.core.exceptions import PermissionDenied
-
+from .mixins import AdminRequiredMixin
 
 
 class IndexView(generic.View):
@@ -93,3 +93,12 @@ class DeleteAppView(mixins.LoginRequiredMixin, edit.DeleteView):
 
         return obj
 
+
+class AdminPanelView(AdminRequiredMixin, generic.View):
+    def get(self, request):
+        return render(request, 'superadmin/index.html', self.get_context_data())
+
+    def get_context_data(self):
+        context = {}
+
+        return context

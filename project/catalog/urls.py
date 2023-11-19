@@ -12,6 +12,7 @@ urlpatterns = [
     path('myapplication/', views.MyAppsView.as_view(), name='myapplication'),
     path('myapplication/new', views.NewAppView.as_view(), name='newapplication'),
     path('myapplication/<pk>/delete', views.DeleteAppView.as_view(), name='deleteapplication'),
+    path('superadmin/', views.AdminPanelView.as_view(), name='superadmin'),
 
 
 
