@@ -2,16 +2,14 @@
 
 {% block head_ext %}
 
-<script>
-    const openLink = link => window.location.href = link
-</script>
+
 
 {% endblock head_ext %}
 
 {% block main %}
 
 <div class="py-10">
-    <!-- TODO: new category -->
+
     <a class="text-black font-medium text-m " href="{% url 'admin-category-create' %}">Создать категорию</a>
 </div>
 
@@ -26,7 +24,7 @@
             >
 
             <a class="absolute text-black font-medium text-sm px-5 py-2.5 right-0 top-0 hidden group-hover:block"
-                href="#">удалить</a>
+                href="{% url 'admin-category-delete' pk=category.id %}">удалить</a>
 
             {{category}}
 

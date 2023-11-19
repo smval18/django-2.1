@@ -16,6 +16,7 @@ urlpatterns = [
     path('superadmin/categories', views.CategoriesListView.as_view(), name='admin-categories'),
     path('superadmin/categories/create', views.CategoryCreateView.as_view(), name='admin-category-create'),
     path('superadmin/applications', views.ApplicationsListView.as_view(), name='admin-applications'),
+    path('superadmin/categories/<pk>/delete', views.CategoryDeleteView.as_view(), name='admin-category-delete'),
 
 
 

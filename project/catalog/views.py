@@ -122,3 +122,9 @@ class ApplicationsListView(AdminRequiredMixin, generic.ListView):
     model = models.Application
     template_name = 'superadmin/applications.html'
     context_object_name = 'applications'
+
+
+class CategoryDeleteView(mixins.LoginRequiredMixin, edit.DeleteView):
+    model = models.Category
+    success_url = reverse_lazy('admin-categories')
+    template_name = 'superadmin/category_delete.html'
