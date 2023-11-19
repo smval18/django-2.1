@@ -1,0 +1,42 @@
+{% extends "superadmin/base_generic.html" %}
+
+
+{% block main %}
+
+<div class="">
+
+    <div class="flex flex-wrap gap-4 py-20">
+
+        {% if applications %}
+
+        {% for app in applications %}
+        <a class="group bg-gray-100/ px-4 py-2 w-80 "
+            href="#">
+            <img class="mx-auto max-h-52" src="{{app.image.url}}" alt="Application image">
+
+            {{app.created_at}}
+            <p class="">
+                <b>Название:</b>
+                <span class="">{{app.name}}</span><br>
+                <b>Категория:</b>
+                <span class="">{{app.category}}</span><br>
+                <b>Статус:</b>
+                <span class="">{{app.status}}</span><br>
+                <b>Описание:</b>
+                <span class="">{{app.description}}</span>
+            </p>
+        </a>
+        {% endfor %}
+
+        {% else %}
+
+        <div class="flex-1">
+            <p class="text-center font-medium">заявок нет</p>
+        </div>
+
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}

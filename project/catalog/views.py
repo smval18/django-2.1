@@ -80,6 +80,7 @@ class NewAppView(mixins.LoginRequiredMixin, edit.CreateView):
         kwargs.update({'user': self.request.user})
         return kwargs
 
+
 class DeleteAppView(mixins.LoginRequiredMixin, edit.DeleteView):
     model = models.Application
     success_url = reverse_lazy('myapplication')
@@ -102,3 +103,22 @@ class AdminPanelView(AdminRequiredMixin, generic.View):
         context = {}
 
         return context
+
+
+class CategoriesListView(AdminRequiredMixin, generic.ListView):
+    model = models.Category
+    template_name = 'superadmin/categories.html'
+    context_object_name = 'categories'
+
+
+class CategoryCreateView(AdminRequiredMixin, generic.CreateView):
+    model = models.Category
+    form_class = forms.CategoryForm
+    template_name = 'superadmin/category_create.html'
+    success_url = reverse_lazy('admin-categories')
+
+
+class ApplicationsListView(AdminRequiredMixin, generic.ListView):
+    model = models.Application
+    template_name = 'superadmin/applications.html'
+    context_object_name = 'applications'
