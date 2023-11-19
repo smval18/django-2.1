@@ -1,0 +1,42 @@
+{% extends "superadmin/base_generic.html" %}
+
+{% block main %}
+
+<h2 class="text-xl  my-4">Изменение статуса</h2>
+
+<form class="l max-w-xs flex flex-col  gap-5" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ next }}">
+
+
+
+
+
+    <div class="">
+        {{ form.image.label_tag }}
+        {{ form.image }}
+    </div>
+
+        {% if form.image.errors %}
+            {% for error in form.image.errors %}
+                <p class="">{{error}}</p>
+            {% endfor %}
+        {% endif %}
+
+    <div class="">
+        {{ form.status.label_tag }}
+        {{ form.status }}
+    </div>
+
+    {% if form.status.errors %}
+        {% for error in form.status.errors %}
+            <p class="">{{error}}</p>
+        {% endfor %}
+    {% endif %}
+
+    <div class="flex gap-4 ">
+        <button type="submit" class="text-black  text-m  py-2.5">сменить</button>
+    </div>
+</form>
+
+{% endblock main %}

@@ -11,7 +11,7 @@
 
         {% for app in applications %}
         <a class="group bg-gray-100/ px-4 py-2 w-80 "
-            href="#">
+            href="{% url 'admin-application-update' pk=app.id %}">
             <img class="mx-auto max-h-52" src="{{app.image.url}}" alt="Application image">
 
             {{app.created_at}}

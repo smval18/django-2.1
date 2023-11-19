@@ -128,3 +128,18 @@ class CategoryDeleteView(mixins.LoginRequiredMixin, edit.DeleteView):
     model = models.Category
     success_url = reverse_lazy('admin-categories')
     template_name = 'superadmin/category_delete.html'
+
+
+class ApplicationUpdateView(AdminRequiredMixin, edit.UpdateView):
+    model = models.Application
+    form_class = forms.ApplicaionForm
+    template_name = 'superadmin/application_update.html'
+    success_url = reverse_lazy('admin-applications')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['record_id'] = self.object.pk
+        return kwargs
+
+
+

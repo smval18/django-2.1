@@ -9,6 +9,7 @@ class User(AbstractUser):
         return self.username
 
 class Status(models.Model):
+
     name = models.CharField('Name', max_length=100)
 
     @staticmethod

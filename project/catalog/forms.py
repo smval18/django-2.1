@@ -152,11 +152,22 @@ class NewApplicationForm(forms.ModelForm):
         return app
 
 
+
+
+class CategoryForm(forms.ModelForm):
+
+    class Meta:
+        model = models.Category
+        fields = (
+            'name',
+        )
+
+
 class ApplicaionForm(forms.ModelForm):
     class Meta:
         model = models.Application
         fields = (
-            'description',
+
             'image',
             'status'
         )
@@ -168,7 +179,7 @@ class ApplicaionForm(forms.ModelForm):
 
         model = models.Application.objects.get(pk=id)
 
-        if model.status.name != 'New':
+        if model.status.name != 'новая':
             del self.fields['status']
 
             return
@@ -184,25 +195,17 @@ class ApplicaionForm(forms.ModelForm):
             raise forms.ValidationError("ДОБАВЬТЕ ИЗОБРАЖЕНИЕ")
 
         if img.size > 2 * 1024 * 1024:
-            raise forms.ValidationError("ИЗОБРАЖЕНИЕ БОЛЬШОЕ, ДОБАВЬТЕ МЕНЬШЕ")
+            raise forms.ValidationError("ИЗОБРАЖЕНИЕ БОЛЬШОЕ")
 
         return img
 
     def save(self, commit=True) -> Any:
         app = super(ApplicaionForm, self).save(commit=False)
         app.image = self.cleaned_data.get('image')
-
+        # app.user = self.user
+        # app.status = models.Status.get_by_name('New')
 
         if commit:
             app.save()
 
         return app
-
-class CategoryForm(forms.ModelForm):
-
-    class Meta:
-        model = models.Category
-        fields = (
-            'name',
-        )
-
