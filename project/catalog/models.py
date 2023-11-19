@@ -42,19 +42,21 @@ class Application(models.Model):
 
     @staticmethod
     def get_new_applications():
-        return Application.objects.filter(status=Status.objects.get(name='New')).order_by('created_at')[:4]
+
+        return Application.objects.filter(status=Status.objects.get(name='новая')).order_by('created_at')[:4]
 
     @staticmethod
     def get_accept_applications():
-        return Application.objects.filter(status=Status.objects.get(name='Accept')).order_by('created_at')[:4]
+        return Application.objects.filter(status=Status.objects.get(name='принята в работу')).order_by('created_at')[:4]
 
     @staticmethod
     def get_accept_applications_count():
-        return Application.objects.filter(status=Status.objects.get(name='Accept')).count()
+        return Application.objects.filter(status=Status.objects.get(name='принята в работу')).count()
 
     @staticmethod
     def get_done_applications():
-        return Application.objects.filter(status=Status.objects.get(name='Done')).order_by('created_at')[:4]
+        return Application.objects.filter(status=Status.objects.get(name='выполнено')).order_by('created_at')[:4]
+
 
     def __str__(self) -> str:
         return self.name

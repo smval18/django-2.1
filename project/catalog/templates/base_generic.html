@@ -14,13 +14,40 @@
     <div class="">
         <footer class="flex justify-between items-center px-4 py-2">
             <a class="text-2xl text-black-600 font-bold" href="{% url 'index' %}">Главная</a>
+
+
+
+            <div class="text-xl py-10 px-5">
+                {% if user.is_authenticated %}
+                    <a class="text-black " href="{% url 'myapplication' %}">Мои Заявки</a><br>
+
+                {% endif %}
+
+                {% block header %}
+
+                {% endblock header %}
+            </div>
+
             <div class="">
+                {% if user.is_authenticated %}
+
+                <a type="button" class="text-black font-medium  text-m  "
+                    href="{% url 'logout' %}">Выйти из аккаунта</a>
+
+
+                {% else %}
+
+
                 <a type="button" class="text-black font-medium rounded-lg text-sm px-5 py-2.5"
                     href="{% url 'login' %}">Авторизоваться</a>
                 <a type="button" class="text-black font-medium rounded-lg text-sm px-5 py-2.5"
                     href="{% url 'register' %}">Регистрация</a>
+
+                {% endif %}
             </div>
         </footer>
+
+
         <main class="flex-1 px-4">
             {% block main %}
             {% endblock main %}

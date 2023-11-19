@@ -1,0 +1,71 @@
+{% extends "base_generic.html" %}
+
+{% block main %}
+
+<h2 class="text-xl font-bold my-4">создание новой заявки</h2>
+
+<div class="flex h-full ">
+    <form class="" method="post"
+        action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+
+        {% if form.non_field_errors %}
+            {{ form.non_field_errors }}
+        {% endif %}
+
+        <div class="space-y-4">
+
+            <div class=" ">
+                {{ form.name.label_tag }}
+                {{ form.name }}
+            </div>
+
+            {% if form.name.errors %}
+                {% for error in form.name.errors %}
+                    <p class="">{{error}}</p>
+                {% endfor %}
+            {% endif %}
+
+            <div class="">
+                {{ form.description.label_tag }}
+                {{ form.description }}
+            </div>
+
+            {% if form.description.errors %}
+                {% for error in form.description.errors %}
+                    <p class="">{{error}}</p>
+                {% endfor %}
+            {% endif %}
+
+            <div class="">
+                {{ form.image.label_tag }}
+                {{ form.image }}
+            </div>
+
+            {% if form.image.errors %}
+                {% for error in form.image.errors %}
+                    <p class="">{{error}}</p>
+                {% endfor %}
+            {% endif %}
+
+            <div class="">
+                {{ form.category.label_tag }}
+                {{ form.category }}
+            </div>
+
+            {% if form.category.errors %}
+                {% for error in form.category.errors %}
+                    <p class="">{{error}}</p>
+                {% endfor %}
+            {% endif %}
+
+        </div>
+
+        <div class="">
+            <button type="submit"
+                class="text-black font-bold text-m py-5">Создать</button>
+        </div>
+    </form>
+</div>
+{% endblock main %}

@@ -1,0 +1,11 @@
+{% extends "base_generic.html" %}
+
+{% block main %}
+
+<div class="flex flex-col items-center gap-4">
+    <h2 class=" text-center">Вы вышли из личного кабинета</h2>
+    <a type="button" class="text-sm "
+        href="{% url 'login' %}">Войти</a>
+</div>
+
+{% endblock main %}

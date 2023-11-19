@@ -1,0 +1,68 @@
+{% extends "base_generic.html" %}
+
+{% block header %}
+
+{% endblock header %}
+
+{% block main %}
+
+<div class="">
+
+    {% if statuses %}
+
+    <p>
+        <b>Сортировать:</b><br>
+        {% for status in statuses %}
+
+       <a class="text-black" href="?status={{status}}">{{status}}</a><br>
+
+        {% endfor %}
+
+        <a class="text-black" href="{{request.path}}">показать все</a>
+    </p>
+
+    {% endif %}
+
+    <a class="text-s font-bold"
+        href="{% url 'newapplication' %}">Добавить Новую Заявку</a>
+</div>
+
+<div class="">
+
+    <div class="flex flex-wrap gap-4">
+
+        {% if applications %}
+        {% for app in applications %}
+        <div class="group bg-gray-100/50  px-4 py-2 w-80 ">
+
+
+            <img class="mx-auto max-h-52" src="{{app.image.url}}" alt="Application image">
+
+            {{app.created_at}}
+            <p class="">
+                <b>Название:</b>
+                <span class="">{{app.name}}</span><br>
+                <b>Категория:</b>
+                <span class="">{{app.category}}</span><br>
+                <b>Статус:</b>
+                <span class="">{{app.status}}</span><br>
+                <b>Описание:</b>
+                <span class="">{{app.description}}</span>
+            </p>
+            {% if app.status.name == "новая" %}
+                <a class="text-white bg-black border font-medium text-sm px-3 py-1" href="{% url 'deleteapplication' pk=app.id %}">удалить</a>
+            {% endif %}
+
+        </div>
+        {% endfor %}
+
+     {% else %}
+        <div class="flex-1">
+            <p class="text-center font-medium">Нет приложений...</p>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}

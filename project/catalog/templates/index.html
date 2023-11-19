@@ -22,9 +22,13 @@
         {% for app in done_applications %}
         <div class="bg-gray-100/50 rounded-lg px-4 py-2 w-80">
             <img class="mx-auto max-h-52" src="{{app.image.url}}" alt="Application image">
-            <p class="text-lg text-center font-bold">{{app.name}}</p>
+
+
             {{app.created_at}}
             <p class="">
+                <b>Название:</b>
+                <span class="">{{app.name}}</span><br>
+
                 <b>Категория:</b>
                 <span class="">{{app.category}}</span>
             </p>
