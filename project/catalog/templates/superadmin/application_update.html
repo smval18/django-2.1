@@ -2,13 +2,45 @@
 
 {% block main %}
 
-<h2 class="text-xl  my-4">Изменение статуса</h2>
+<h2 class="text-xl  my-4">Изменение заявки</h2>
 
 <form class="l max-w-xs flex flex-col  gap-5" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <input type="hidden" name="next" value="{{ next }}">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ next }}">
 
+     <div class="">
+        {{ form.category.label_tag }}
+        {{ form.category }}
+    </div>
 
+    {% if form.category.errors %}
+        {% for error in form.category.errors %}
+            <p class="">{{error}}</p>
+        {% endfor %}
+    {% endif %}
+    <div class="">
+        {{ form.name.label_tag }}
+        {{ form.name }}
+            </div>
+
+    {% if form.name.errors %}
+        {% for error in form.name.errors %}
+            <p class="">{{error}}</p>
+        {% endfor %}
+    {% endif %}
+
+    <div class="">
+        {{ form.description.label_tag }}
+        {{ form.description }}
+    </div>
+
+    {% if form.description.errors %}
+        {% for error in form.description.errors %}
+            <p class="">{{error}}</p>
+        {% endfor %}
+    {% endif %}
 
 
 

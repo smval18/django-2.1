@@ -167,7 +167,9 @@ class ApplicaionForm(forms.ModelForm):
     class Meta:
         model = models.Application
         fields = (
-
+            'description',
+            'category',
+            'name',
             'image',
             'status'
         )
