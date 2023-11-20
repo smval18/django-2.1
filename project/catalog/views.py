@@ -143,3 +143,4 @@ class ApplicationUpdateView(AdminRequiredMixin, edit.UpdateView):
 
 
 
+

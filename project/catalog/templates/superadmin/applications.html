@@ -10,9 +10,14 @@
         {% if applications %}
 
         {% for app in applications %}
-        <a class="group bg-gray-100/ px-4 py-2 w-80 "
+        <a class=" px-4 py-2 w-80 "
             href="{% url 'admin-application-update' pk=app.id %}">
+            {% if app.status.name == 'выполнено' %}
+            <img class="mx-auto max-h-52" src="{{app.image_admin.url}}" alt="Application image">
+            {% else %}
+
             <img class="mx-auto max-h-52" src="{{app.image.url}}" alt="Application image">
+            {% endif %}
 
             {{app.created_at}}
             <p class="">

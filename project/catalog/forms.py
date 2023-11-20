@@ -5,7 +5,7 @@ from django.core import validators
 from django.core.files.base import File
 from django.db.models.base import Model
 from django.forms.utils import ErrorList
-
+from django.core.exceptions import ValidationError
 from . import models
 
 
@@ -168,10 +168,10 @@ class ApplicaionForm(forms.ModelForm):
         model = models.Application
         fields = (
             'description',
-            'category',
-            'name',
             'image',
-            'status'
+            'status',
+            'comment_admin',
+            'image_admin'
         )
 
     def __init__(self, *args, **kwargs) -> None:
@@ -190,22 +190,23 @@ class ApplicaionForm(forms.ModelForm):
 
         self.fields['status'].choices = ((s.pk, s.name) for s in statuses)
 
-    def clean_image(self):
-        img = self.cleaned_data.get('image')
+    def clean(self):
+        status = self.cleaned_data.get('status')
 
-        if not img:
-            raise forms.ValidationError("ДОБАВЬТЕ ИЗОБРАЖЕНИЕ")
+        img = self.cleaned_data.get('image_admin')
+        comment = self.cleaned_data.get('comment_admin')
 
-        if img.size > 2 * 1024 * 1024:
-            raise forms.ValidationError("ИЗОБРАЖЕНИЕ БОЛЬШОЕ")
 
-        return img
+        if status.name == 'выполнено' and img is None:
+            raise ValidationError("Заявке со статусом 'Выполнено' надо прикреплять фотографию дизайна!")
+
+        if status.name == 'принята в работу' and comment == "":
+            raise ValidationError("Заявке со статусом 'Принята в работу' надо оставлять комментарий!")
 
     def save(self, commit=True) -> Any:
         app = super(ApplicaionForm, self).save(commit=False)
-        app.image = self.cleaned_data.get('image')
-        # app.user = self.user
-        # app.status = models.Status.get_by_name('New')
+        app.comment_admin = self.cleaned_data.get('comment_admin')
+        app.image_admin = self.cleaned_data.get('image_admin')
 
         if commit:
             app.save()
