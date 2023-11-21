@@ -9,6 +9,7 @@ class User(AbstractUser):
         return self.username
 
 class Status(models.Model):
+
     name = models.CharField('Name', max_length=100)
 
     @staticmethod
@@ -35,6 +36,10 @@ class Application(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+    image_admin = models.ImageField(verbose_name="изображение готового дизайна", upload_to='images_admin',
+                                    help_text="добавить изображение при смене статуса на выполнено", blank=True)
+    comment_admin = models.TextField(verbose_name="комментарий",
+                                     help_text="добавить комментарий при смене статуса на принят в работу", blank=True)
 
     @staticmethod
     def get_count():

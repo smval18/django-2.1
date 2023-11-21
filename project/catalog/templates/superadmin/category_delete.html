@@ -1,0 +1,15 @@
+{% extends "superadmin/base_generic.html" %}
+
+{% block main %}
+
+<form class="flex flex-col  items-center" action="" method="post">
+
+    {% csrf_token %}
+
+    <h2 class="text-xl  text-center my-4">Вы хотите удалить категорию, вернуть ее будет невозможно {{ app.name }}</h2>
+
+    <button type="submit" class="text-black  font-medium  text-sm px-5 py-2.5">все равно удалить</button>
+</form>
+
+
+{% endblock main %}

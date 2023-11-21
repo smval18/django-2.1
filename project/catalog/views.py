@@ -8,7 +8,7 @@ from . import forms
 from django.contrib.auth import mixins
 from django.views.generic import edit
 from django.core.exceptions import PermissionDenied
-
+from .mixins import AdminRequiredMixin
 
 
 class IndexView(generic.View):
@@ -80,6 +80,7 @@ class NewAppView(mixins.LoginRequiredMixin, edit.CreateView):
         kwargs.update({'user': self.request.user})
         return kwargs
 
+
 class DeleteAppView(mixins.LoginRequiredMixin, edit.DeleteView):
     model = models.Application
     success_url = reverse_lazy('myapplication')
@@ -92,4 +93,54 @@ class DeleteAppView(mixins.LoginRequiredMixin, edit.DeleteView):
             raise PermissionDenied
 
         return obj
+
+
+class AdminPanelView(AdminRequiredMixin, generic.View):
+    def get(self, request):
+        return render(request, 'superadmin/index.html', self.get_context_data())
+
+    def get_context_data(self):
+        context = {}
+
+        return context
+
+
+class CategoriesListView(AdminRequiredMixin, generic.ListView):
+    model = models.Category
+    template_name = 'superadmin/categories.html'
+    context_object_name = 'categories'
+
+
+class CategoryCreateView(AdminRequiredMixin, generic.CreateView):
+    model = models.Category
+    form_class = forms.CategoryForm
+    template_name = 'superadmin/category_create.html'
+    success_url = reverse_lazy('admin-categories')
+
+
+class ApplicationsListView(AdminRequiredMixin, generic.ListView):
+    model = models.Application
+    template_name = 'superadmin/applications.html'
+    context_object_name = 'applications'
+
+
+class CategoryDeleteView(mixins.LoginRequiredMixin, edit.DeleteView):
+    model = models.Category
+    success_url = reverse_lazy('admin-categories')
+    template_name = 'superadmin/category_delete.html'
+
+
+class ApplicationUpdateView(AdminRequiredMixin, edit.UpdateView):
+    model = models.Application
+    form_class = forms.ApplicaionForm
+    template_name = 'superadmin/application_update.html'
+    success_url = reverse_lazy('admin-applications')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['record_id'] = self.object.pk
+        return kwargs
+
+
+
 

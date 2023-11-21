@@ -1,0 +1,22 @@
+{% extends "superadmin/base_generic.html" %}
+
+{% block main %}
+
+<h2 class="text-xl font-bold  my-4">создание категории</h2>
+
+<form class="max-w-xs flex flex-col gap-4 border"
+    method="post">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ next }}">
+
+    <div class="">
+        {{ form.name.label_tag }}
+        {{ form.name }}
+    </div>
+
+    <div class="">
+        <button type="submit" class="text-black  text-m py-2.5">Создать!</button>
+    </div>
+</form>
+
+{% endblock main %}

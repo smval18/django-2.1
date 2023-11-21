@@ -1,0 +1,70 @@
+{% extends "superadmin/base_generic.html" %}
+
+{% block main %}
+
+
+
+<form class=" max-w-xs flex flex-col gap-8 p-4" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ next }}">
+
+    <div class="">
+        {{ form.description.label_tag }}
+        {{ form.description }}
+    </div>
+
+    {% if form.description.errors %}
+        {% for error in form.description.errors %}
+            <p class="">{{error}}</p>
+        {% endfor %}
+    {% endif %}
+
+    <div class="">
+        {{ form.image_admin.label_tag }}
+        {{ form.image_admin }}
+    </div>
+
+    {% if form.image_admin.errors %}
+        {% for error in form.image_admin.errors %}
+            <p class="">{{error}}</p>
+        {% endfor %}
+    {% endif %}
+ <div class="">
+        {{ form.comment_admin.label_tag }}
+        {{ form.comment_admin }}
+    </div>
+
+    {% if form.comment_admin.errors %}
+        {% for error in form.comment_admin.errors %}
+            <p class="">{{error}}</p>
+        {% endfor %}
+    {% endif %}
+
+    <div class="">
+        {{ form.image.label_tag }}
+        {{ form.image }}
+    </div>
+
+    {% if form.image.errors %}
+        {% for error in form.image.errors %}
+            <p class="">{{error}}</p>
+        {% endfor %}
+    {% endif %}
+
+    <div class="">
+        {{ form.status.label_tag }}
+        {{ form.status }}
+    </div>
+
+    {% if form.status.errors %}
+        {% for error in form.status.errors %}
+            <p class="">{{error}}</p>
+        {% endfor %}
+    {% endif %}
+
+    <div class="">
+        <button type="submit" class="text-black font-medium text-sm px-5 py-2.5">Обновить</button>
+    </div>
+</form>
+
+{% endblock main %}
